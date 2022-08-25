@@ -1,0 +1,41 @@
+[user]
+    email      = goga.enrique@gmail.com
+    name       = Enrique Gonzalez
+    signingkey = F7ED39E3FC6428AC805C7F464A199487BA81AFF5
+[alias]
+    hist = log --graph --date-order --date=short --pretty=format:'%C(auto)%h%d %C(reset)%s %C(bold blue)%ce %C(reset)%C(green)%cr (%cd)'
+[commit]
+    gpgsign = true
+[core]
+    attributesfile = ~/.gitattributes.global
+    editor         = vim
+    excludesfile   = ~/.gitignore.global
+    hooksPath      = ~/.gitconfigs/hooks
+    pager          = delta --dark
+[delta]
+    light        = false3
+    line-numbers = true
+    navigate     = true
+    side-by-side = true
+[diff]
+    colorMoved = default
+[diff "sopsdiffer"]
+    textconv = sops -d
+[filter "lfs"]
+    clean    = git-lfs clean -- %f
+    process  = git-lfs filter-process
+    required = true
+    smudge   = git-lfs smudge -- %f
+[gpg]
+    program = gpg2
+[interactive]
+    diffFilter = delta --color-only
+[add.interactive]
+    useBuiltin = false # delta: required for git 2.37.0
+[merge]
+    conflictstyle = diff3
+[pull]
+    rebase = false
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+

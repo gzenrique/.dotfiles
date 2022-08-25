@@ -1,0 +1,33 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+      force: true
+      use_glob: true
+
+        #- clean: ["~"]
+
+- shell:
+    - command: test -d ~/.oh-my-zsh || sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+      description: Installing ohmyzsh
+
+    - command: which brew || bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      description: Installing homebrew
+
+    - command: brew bundle --file brew/Brewfile
+      description: Installing brew packages
+      stdout: true
+
+    - command: git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
+      description: Installing Zsh theme
+    
+- link:
+    ~/.gitconfig: git/.gitconfig
+    ~/.gitignore.global: git/.gitignore.global
+    ~/.gitattributes.global: git/.gitattributes.global
+    ~/.p10k.zsh: zsh/.p10k.zsh
+    ~/.zshrc: zsh/.zshrc
+    ~/.hammerspoon/init.lua: hammerspoon/init.lua
+
+- create:
+    - ~/code/github.com
