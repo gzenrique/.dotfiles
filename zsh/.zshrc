@@ -7,6 +7,8 @@ fi
 
 export PATH="/usr/local/opt/openssl@3/bin:$HOME/go/bin:/usr/local/bin:$PATH"
 
+[ ! -f ~/.zshrc.local ] || source ~/.zshrc.local
+
 # Set Meta modifiers
 # Run `cat` then press keys to see the codes your shortcut send
 bindkey "^[[1;2D" backward-word
@@ -18,13 +20,12 @@ export PATH="/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 export PATH="~/bin:$PATH"
 
-
 ##########################
 # Oh My Zsh configuration
 ##########################
 
 # Path to oh-my-zsh installation
-export ZSH=$HOME/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Show command execution time stamp in the history command output.
 HIST_STAMPS="%d-%m-%y %T"
@@ -51,7 +52,13 @@ source $ZSH/oh-my-zsh.sh
 # Conflicts with 'ksd' binary
 unalias ksd
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+alias clone='clone-in-kitty'
+alias dotfiles='git -C ~/.dotfiles'
+alias kcx=kubectx
+alias ns=kubens
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[ ! -f ~/.p10k.zsh ] || source ~/.p10k.zsh
+
+[ ! -f ~/.fzf.zsh ] || source ~/.fzf.zsh
+
