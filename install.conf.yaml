@@ -1,0 +1,50 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+      force: true
+      use_glob: true
+
+- create:
+    - ~/code/github.com/offzale
+
+- shell: 
+    - command: ls ~/.ssh/id_rsa > /dev/null || ssh-keygen -o -t rsa -C "$HOST" -f ~/.ssh/id_rsa
+      description: Provision ssh key
+      stdin: true
+
+    - command: which -s brew || bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      description: Install homebrew
+      stdin: true
+      stdout: true
+
+    - command: brew bundle --file brew/Brewfile
+      description: Install brew packages
+      stdin: true
+      stdout: true
+
+    - command: scripts/xcode-license.sh
+      description: Sign Xcode license agreement
+      stdin: true
+
+    - command: scripts/defaults.sh
+      description: Set MacOS defaults
+      stdin: true
+
+    - command: GIT_PATH=~/.config/kitty/themes && (git -C $GIT_PATH status || git clone --depth=1 https://github.com/dexpota/kitty-themes.git $GIT_PATH)
+      description: Install Kitty themes
+
+    - command: test -d ~/.oh-my-zsh || sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+      description: Install ohmyzsh
+
+    - command: GIT_PATH=~/.oh-my-zsh/custom/themes/powerlevel10k && (git -C $GIT_PATH status || git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $GIT_PATH)
+      description: Install Zsh theme
+    
+- link:
+    ~/.gitconfig: git/.gitconfig
+    ~/.gitignore.global: git/.gitignore.global
+    ~/.gitattributes.global: git/.gitattributes.global
+    ~/.p10k.zsh: zsh/.p10k.zsh
+    ~/.zshrc: zsh/.zshrc
+    ~/.hammerspoon/init.lua: hammerspoon/init.lua
+
