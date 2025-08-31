@@ -1,0 +1,7 @@
+tap "norwoodj/tap"
+brew "kubectx"
+brew "skopeo"
+brew "stern"
+brew "norwoodj/tap/helm-docs"
+cask_args require_sha: true
+cask "tunnelblick"

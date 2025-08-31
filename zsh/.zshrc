@@ -5,7 +5,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export PATH="/usr/local/opt/openssl@3/bin:$HOME/go/bin:/usr/local/bin:$PATH"
+# Added brew for Apple silicon compatibility
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/go/bin:/usr/local/bin:$PATH"
 
 [ ! -f ~/.zshrc.local ] || source ~/.zshrc.local
 
@@ -15,10 +16,6 @@ bindkey "^[[1;2D" backward-word
 bindkey "^[[1;2C" forward-word
 
 export GPG_TTY=$TTY
-
-export PATH="/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin:$PATH"
-export PATH="/usr/local/opt/libpq/bin:$PATH"
-export PATH="~/bin:$PATH"
 
 ##########################
 # Oh My Zsh configuration

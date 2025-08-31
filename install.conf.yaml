@@ -6,30 +6,41 @@
       use_glob: true
 
 - create:
-    - ~/code/github.com/offzale
+    - ~/code/github.com/gzenrique
 
 - shell: 
     - command: ls ~/.ssh/id_rsa > /dev/null || ssh-keygen -o -t rsa -C "$HOST" -f ~/.ssh/id_rsa
       description: Provision ssh key
-      stdin: true
 
-    - command: which -s brew || bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    - command: which -s brew || bash -c "NONINTERACTIVE=1; $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       description: Install homebrew
       stdin: true
-      stdout: true
 
-    - command: brew bundle --file brew/Brewfile
+    - command: cat brew/Brewfile-core brew/Brewfile-$SCOPE | sort | uniq | /opt/homebrew/bin/brew bundle --file=-
       description: Install brew packages
       stdin: true
       stdout: true
+
+    - command: ls /usr/local/bin/code > /dev/null || sudo ln -fs /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code /usr/local/bin/code
+      description: Set VSCode CLI
 
     - command: scripts/xcode-license.sh
       description: Sign Xcode license agreement
       stdin: true
 
     - command: scripts/defaults.sh
-      description: Set MacOS defaults
+      description: Set MacOS defaults I
       stdin: true
+
+    - command: scripts/defaults.applescript
+      description: Set MacOS defaults II
+      stdin: true
+
+    - command: defaults read ~/Library/Preferences/com.apple.LaunchServices/com.apple.launchservices.secure | awk -F'"' '/http;/{print window[(NR)-1]}{window[NR]=$2}' | grep -q brave || defaultbrowser browser
+      description: Set default browser
+
+    - command: tfenv version-name &> /dev/null || (tfenv install latest && tfenv use latest)
+      description: Set up Terraform (tfenv)
 
     - command: GIT_PATH=~/.config/kitty/themes && (git -C $GIT_PATH status || git clone --depth=1 https://github.com/dexpota/kitty-themes.git $GIT_PATH)
       description: Install Kitty themes

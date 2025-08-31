@@ -93,6 +93,7 @@ killall Finder
 # defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
 
 # Key Repeats customization
+defaults write "com.apple.Accessibility" KeyRepeatEnabled -bool false
 defaults write -g "KeyRepeat" -float 1.3
 defaults write -g "InitialKeyRepeat" -int 15
 

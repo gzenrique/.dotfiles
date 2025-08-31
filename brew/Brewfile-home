@@ -1,0 +1,18 @@
+brew "ffmpeg"
+brew "libheif"
+brew "libraw"
+brew "wimlib"
+brew "ykman"
+brew "ykpers"
+brew "yt-dlp"
+cask_args require_sha: true
+cask "1password"
+cask "1password-cli"
+cask "appcleaner"
+cask "discord"
+cask "microsoft-auto-update"
+cask "microsoft-office"
+cask "telegram"
+cask "vlc"
+cask "whatsapp"
+mas "iMovie", id: 408981434
